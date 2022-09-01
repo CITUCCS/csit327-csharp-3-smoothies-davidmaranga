@@ -107,11 +107,17 @@
 
         /// <summary>
         /// Method which calculates the total cost of the ingredients used to make the smoothie.
-        /// TODO: Implement me!
         /// </summary>
         public string GetCost()
         {
-            throw new NotImplementedException();
+            double totalCost = 0.0;
+
+            foreach (var ingredient in _ingredients)
+            {
+                totalCost += Convert.ToDouble(_prices[ingredient].Remove(0, 1));
+            }
+
+            return "$" + totalCost.ToString("N2");
         }
 
         /// <summary>
