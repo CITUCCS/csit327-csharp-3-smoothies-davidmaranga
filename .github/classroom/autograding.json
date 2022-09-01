@@ -1,0 +1,54 @@
+{
+  "tests": [
+    {
+      "name": "Unit Tests (SmoothieConstructor)",
+      "setup": "",
+      "run": "DOTNET_CLI_HOME=/home/runner dotnet test --filter TestGroup=SmoothieConstructor",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 10
+    },
+    {
+      "name": "Unit Tests (SmoothieIngredients)",
+      "setup": "",
+      "run": "DOTNET_CLI_HOME=/home/runner dotnet test --filter TestGroup=SmoothieIngredients",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 10
+    },
+    {
+      "name": "Unit Tests (SmoothieName)",
+      "setup": "",
+      "run": "DOTNET_CLI_HOME=/home/runner dotnet test --filter TestGroup=SmoothieName",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 10
+    },
+    {
+      "name": "Unit Tests (SmoothieGetCost)",
+      "setup": "",
+      "run": "DOTNET_CLI_HOME=/home/runner dotnet test --filter TestGroup=SmoothieGetCost",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 10
+    },
+    {
+      "name": "Unit Tests (SmoothieGetPrice)",
+      "setup": "",
+      "run": "DOTNET_CLI_HOME=/home/runner dotnet test --filter TestGroup=SmoothieGetPrice",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 10
+    }
+  ]
+}

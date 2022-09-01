@@ -1,0 +1,58 @@
+name: GitHub Classroom Workflow
+
+on:
+  push:
+    branches:
+    - 'master'
+    - 'main'
+    - '!badges'
+  pull_request:
+    branches:
+    - 'master'
+    - 'main'
+
+jobs:
+  build:
+    name: Autograding
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v2
+        with:
+            fetch-depth: 0
+      - uses: education/autograding@v1
+        id: autograder
+        continue-on-error: true
+      - name: Badges branch and make dir
+        run: |
+          git checkout badges 2>/dev/null || git checkout -b badges
+          mkdir -p .github/badges
+      - name: Generate badge
+        uses: emibcn/badge-action@v1.2.1
+        with:
+          label: 'Points'
+          status: ${{ steps.autograder.outputs.points }}
+          color: 'FF512F,F09819'
+          path: '.github/badges/points.svg'
+      - name: Upload badge as artifact
+        uses: actions/upload-artifact@v2
+        with:
+          name: badge
+          path: '.github/badges/points.svg'
+          if-no-files-found: error
+      - name: Commit badge
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add '.github/badges/points.svg'
+          git commit -m "Add/Update badge"
+        continue-on-error: true
+      - name: Push badge commit
+        uses: ad-m/github-push-action@master
+        if: success()
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          branch: badges
+          force: true
+      - name: Check on failures
+        if: steps.autograder.outcome == 'failure'
+        run: echo "Not all tests in autograding@v1 passed" && exit 1
