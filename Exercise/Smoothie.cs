@@ -92,14 +92,7 @@
                     name += ingredient + " ";
                 }
 
-                if (sortedIngredients.Count() > 1)
-                {
-                    name += "Fusion";
-                }
-                else
-                {
-                    name += "Smoothie";
-                }
+                name += sortedIngredients.Count() > 1 ? "Fusion" : "Smoothie";
 
                 return name;
             }
