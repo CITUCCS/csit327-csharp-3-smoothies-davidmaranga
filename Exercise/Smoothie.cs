@@ -3,6 +3,7 @@
     public class Smoothie
     {
         private IEnumerable<string> _ingredients;
+        private string _name;
 
         // DO NOT MODIFY THIS FIELD
         private readonly Dictionary<string, string> _prices = new()
@@ -70,12 +71,38 @@
 
         /// <summary>
         /// Name of the smoothie
-        /// TODO: Implement me!
         /// </summary>
         public string Name
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get
+            {
+                IEnumerable<string> sortedIngredients = _ingredients.OrderBy(ingredient => ingredient);
+                string name = "";
+
+                foreach (var element in sortedIngredients)
+                {
+                    string ingredient = element;
+
+                    if (ingredient.Contains("ries"))
+                    {
+                        ingredient = ingredient.Remove(ingredient.Length - 3);
+                        ingredient += "y";
+                    }
+
+                    name += ingredient + " ";
+                }
+
+                if (sortedIngredients.Count() > 1)
+                {
+                    name += "Fusion";
+                }
+                else
+                {
+                    name += "Smoothie";
+                }
+
+                return name;
+            }
         }
 
         /// <summary>
