@@ -1,0 +1,24 @@
+{
+  "tests": [
+    {
+      "name": "Unit Tests (LeapYearExpected)",
+      "setup": "",
+      "run": "DOTNET_CLI_HOME=/home/runner dotnet test --filter TestGroup=LeapYearExpected",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 10
+    },
+    {
+      "name": "Unit Tests (LeapYearExcluded)",
+      "setup": "",
+      "run": "DOTNET_CLI_HOME=/home/runner dotnet test --filter TestGroup=LeapYearExcluded",
+      "input": "",
+      "output": "",
+      "comparison": "included",
+      "timeout": 1,
+      "points": 10
+    }
+  ]
+}
