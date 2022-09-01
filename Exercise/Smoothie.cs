@@ -2,6 +2,8 @@
 {
     public class Smoothie
     {
+        private IEnumerable<string> _ingredients;
+
         // DO NOT MODIFY THIS FIELD
         private readonly Dictionary<string, string> _prices = new()
         {
@@ -14,20 +16,55 @@
             { "Pineapple", "$3.50" }
         };
 
-        // TODO: Implement me!
-        public Smoothie (IEnumerable<string> ingredients)
+        /// <summary>
+        /// A constructor that sets the ingredients with the value <paramref name="ingredients"/>
+        /// if there are no Exceptions thrown.
+        /// </summary>
+        /// <param name="ingredients">A string type of IEnumerable.</param>
+        /// <exception cref="ArgumentException">
+        /// Thrown when any of the following conditions are true:
+        /// 1. <paramref name="ingredients"/> is empty.
+        /// 2. <paramref name="ingredients"/> contains duplicate values.
+        /// 3. <paramref name="ingredients"/> contains values which don't exist in _prices.
+        /// </exception>
+        /// <exception cref="ArgumentNullException">
+        /// Thrown when <paramref name="ingredients"/> is null.
+        /// </exception>
+        public Smoothie(IEnumerable<string> ingredients)
         {
-            throw new NotImplementedException();
+            bool hasDuplicates = ingredients.Count() != ingredients.Distinct().Count();
+            bool hasUnknownIngredients = false;
+
+            foreach (var ingredient in ingredients)
+            {
+                if (!_prices.ContainsKey(ingredient))
+                {
+                    hasUnknownIngredients = true;
+                    break;
+                }
+            }
+
+            if (ingredients.Count() == 0 || hasDuplicates || hasUnknownIngredients)
+            {
+                throw new ArgumentException();
+            }
+
+            if (ingredients == null)
+            {
+                throw new ArgumentNullException();
+            }
+
+            _ingredients = ingredients;
         }
 
         /// <summary>
         /// Ingredients used for the smoothie
         /// TODO: Implement me!
         /// </summary>
-        public IEnumerable<string> Ingredients 
+        public IEnumerable<string> Ingredients
         {
             get => throw new NotImplementedException();
-            set => throw new NotImplementedException(); 
+            set => throw new NotImplementedException();
         }
 
         /// <summary>
