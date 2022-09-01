@@ -59,12 +59,13 @@
 
         /// <summary>
         /// Ingredients used for the smoothie
-        /// TODO: Implement me!
         /// </summary>
         public IEnumerable<string> Ingredients
         {
-            get => throw new NotImplementedException();
-            set => throw new NotImplementedException();
+            get
+            {
+                return _ingredients.OrderBy(ingredient => ingredient);
+            }
         }
 
         /// <summary>
