@@ -121,12 +121,15 @@
         }
 
         /// <summary>
-        /// Method which returns the number from <c>GetCost() + (GetCost() x 1.5)</c>. Round to two decimal places.
-        /// TODO: Implement me!
+        /// Method which returns the number from <c>GetCost() + (GetCost() x 1.5)</c>.
+        /// The number is rounded to two decimal places.
         /// </summary>
         public string GetPrice()
         {
-            throw new NotImplementedException();
+            double totalCost = Convert.ToDouble(GetCost().Remove(0, 1));
+            double totalPrice = totalCost + totalCost * 1.5;
+
+            return "$" + totalPrice.ToString("N2");
         }
     }
 }
