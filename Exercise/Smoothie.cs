@@ -3,7 +3,8 @@
     public class Smoothie
     {
         private IEnumerable<string> _ingredients;
-        private string _name;
+        private IEnumerable<string> _sortedIngredients;
+        private string _name = "";
 
         // DO NOT MODIFY THIS FIELD
         private readonly Dictionary<string, string> _prices = new()
@@ -33,69 +34,48 @@
         /// </exception>
         public Smoothie(IEnumerable<string> ingredients)
         {
+            if (ingredients == null)
+            {
+                throw new ArgumentNullException();
+            }
+
             bool hasDuplicates = ingredients.Count() != ingredients.Distinct().Count();
             bool hasUnknownIngredients = false;
 
-            foreach (var ingredient in ingredients)
+            _ingredients = ingredients;
+            _sortedIngredients = _ingredients.OrderBy(ingredient => ingredient);
+
+            foreach (var ingredient in _sortedIngredients)
             {
                 if (!_prices.ContainsKey(ingredient))
                 {
                     hasUnknownIngredients = true;
                     break;
                 }
+
+                _name += ingredient + ' ';
             }
 
             if (ingredients.Count() == 0 || hasDuplicates || hasUnknownIngredients)
             {
                 throw new ArgumentException();
             }
-
-            if (ingredients == null)
-            {
-                throw new ArgumentNullException();
-            }
-
-            _ingredients = ingredients;
         }
 
         /// <summary>
         /// Ingredients used for the smoothie
         /// </summary>
-        public IEnumerable<string> Ingredients
+        public IEnumerable<string>? Ingredients
         {
-            get
-            {
-                return _ingredients.OrderBy(ingredient => ingredient);
-            }
+            get => _sortedIngredients;
         }
 
         /// <summary>
         /// Name of the smoothie
         /// </summary>
-        public string Name
+        public string? Name
         {
-            get
-            {
-                IEnumerable<string> sortedIngredients = _ingredients.OrderBy(ingredient => ingredient);
-                string name = "";
-
-                foreach (var element in sortedIngredients)
-                {
-                    string ingredient = element;
-
-                    if (ingredient.Contains("ries"))
-                    {
-                        ingredient = ingredient.Remove(ingredient.Length - 3);
-                        ingredient += "y";
-                    }
-
-                    name += ingredient + " ";
-                }
-
-                name += sortedIngredients.Count() > 1 ? "Fusion" : "Smoothie";
-
-                return name;
-            }
+            get => _name.Replace("ies", "y") + ((_sortedIngredients.Count() > 1) ? "Fusion" : "Smoothie");
         }
 
         /// <summary>
